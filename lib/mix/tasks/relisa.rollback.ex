@@ -7,9 +7,28 @@ defmodule Mix.Tasks.Relisa.Rollback do
     This is where we would put any long form documentation or doctests.
   """
 
-  def run(_args) do
-    Mix.shell.info "Rollback!"
+  def run([version|_]) do
+    Relisa.line_break
+    Relisa.say "Performing rollback across targets"
+    rollback_to_version version
   end
 
-  # We can define other functions as needed here.
+  defp rollback_to_version(version) do
+    Enum.each targets, fn ({host, key}) ->
+      Relisa.subsay "#{host}: Rolling back to version #{version}"
+      Mix.Shell.IO.cmd "ssh #{host} -i#{key} \"sudo #{deploy_path}/bin/#{config[:app]} downgrade '#{version}'\""
+    end
+  end
+
+  defp config do
+    Mix.Project.config()
+  end
+
+  defp targets do
+    Application.get_env(:relisa, :targets)
+  end
+
+  defp deploy_path do
+    "~/#{config[:app]}"
+  end
 end

@@ -8,24 +8,12 @@ defmodule Mix.Tasks.Relisa.Prepare do
   """
 
   def run(args) do
-    run_pre_hooks
-    bump_version args
+    Relisa.line_break
+    new_version = bump_version args
     Relisa.say "You're all set! Next steps:"
-    Relisa.subsay "1. Commit these changes"
-    Relisa.subsay "2. Run `mix relisa.deploy`"
-  end
-
-  defp run_pre_hooks do
-    hooks = Application.get_env(:relisa, :hooks)
-    if hooks[:pre] do
-      Relisa.say "Running `pre` hooks"
-      Enum.each hooks[:pre], fn (hook) ->
-        Relisa.subsay hook
-        Mix.Task.run hook
-      end
-    else
-      Relisa.say "Skipping `pre` hooks (none registered)"
-    end
+    Relisa.subsay "git add mix.exs && git commit -m \"#{new_version}\""
+    Relisa.subsay "MIX_ENV=prod mix relisa.deploy"
+    Relisa.line_break
   end
 
   defp bump_version(args) do
@@ -48,6 +36,7 @@ defmodule Mix.Tasks.Relisa.Prepare do
     config_file = Regex.replace(pattern, config_file, "version: \"#{new_version}\"")
     Relisa.subsay "Writing version to `mix.exs`"
     File.write! "mix.exs", config_file, [:write]
+    new_version
   end
 
   defp parse_int(bin) do
