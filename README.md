@@ -11,7 +11,7 @@ Just add `relisa` to your project dependencies:
 
 ```elixir
 def deps do
-  [{:relisa, github: "SenecaSystems/relisa"}]
+  [{:relisa, "~> 0.1.0"}]
 end
 ```
 
@@ -32,11 +32,11 @@ config :relisa,
   targets: [
     {"ubuntu@54.68.138.247", "/vagrant/deploy.pem"}
   ],
-  
+
   # Hooks are Mix tasks that will be executed at certain life-cycle moments
   # in Relisa
   hooks: [
-    
+
     pre: ["phoenix.digest"]
   ]
 ```
