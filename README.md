@@ -59,7 +59,7 @@ Since Relisa automatically updates your version for you, you should commit the c
 
 All you have to do is `MIX_ENV=prod mix relisa.deploy` and relax. Relisa will run any hooks before deploying, package up your release, transport it to each of the `targets` specified in your configuration, and start the application.
 
-Note that you need to do this step on the same arch as your target. We use Vagrant to make this a snap.
+Note that you need to do this step on the same arch as your target. We use [Vagrant](https://www.vagrantup.com) to make this a snap. See [this gist](https://gist.github.com/ndemonner/56df80cd3a09b9c0ad7f) for the `Vagrantfile` we use.
 
 ![deploy](https://cloud.githubusercontent.com/assets/1015847/8770266/03884570-2e63-11e5-9544-24b0120da58b.png)
 
