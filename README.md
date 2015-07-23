@@ -41,7 +41,7 @@ config :relisa,
   ]
 ```
 
-Relisa uses [ssh](https://en.wikipedia.org/wiki/Secure_Shell) and [scp)(https://en.wikipedia.org/wiki/Secure_Copy) to connect with your servers. Each `target` should specify an address (`username@ip_address_or_hostname`) and the path to an ssh key for that server.
+Relisa uses [ssh](https://en.wikipedia.org/wiki/Secure_Shell) and [scp](https://en.wikipedia.org/wiki/Secure_Copy) to connect with your servers. Each `target` should specify an address (`username@ip_address_or_hostname`) and the path to an ssh key for that server.
 
 
 ## Usage
@@ -58,6 +58,8 @@ Since Relisa automatically updates your version for you, you should commit the c
 ### Deploy release
 
 All you have to do is `MIX_ENV=prod mix relisa.deploy` and relax. Relisa will run any hooks before deploying, package up your release, transport it to each of the `targets` specified in your configuration, and start the application.
+
+Note that you need to do this step on the same arch as your target. We use Vagrant to make this a snap.
 
 ![deploy](https://cloud.githubusercontent.com/assets/1015847/8770266/03884570-2e63-11e5-9544-24b0120da58b.png)
 
